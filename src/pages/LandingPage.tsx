@@ -1,4 +1,158 @@
+import { useEffect } from "react";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+import JOS from "jos-animation/dist/jos.js";
+
+onload = () => {
+  const options = {
+    debugMode: true,
+    animation: "flip",
+    duration: 0.7,
+    rootMargin: "0% 0% 0% 0%",
+  };
+  JOS.init(options);
+  //JOS.version();
+};
+
 function LandingPage() {
+  useEffect(() => {
+    JOS.refresh();
+    const accordions = document.querySelectorAll(".accordion-item");
+    accordions.forEach((item) => {
+      const label = item.querySelector(".accordion-header");
+      label?.addEventListener("click", () => {
+        accordions.forEach((accordionItem) => {
+          accordionItem.classList.remove("active");
+        });
+        item.classList.toggle("active");
+      });
+    });
+    window.addEventListener("scroll", function () {
+      const header = document.querySelector("header");
+      header?.classList.toggle("scrolling", window.scrollY > 0);
+    });
+  }, []);
+
+  useEffect(() => {
+    const menu = document.querySelector(".menu-block") as HTMLElement;
+    const menuMain = menu.querySelector(".site-menu-main") as HTMLElement;
+    const submenuAll = menu.querySelectorAll(
+      ".sub-menu"
+    ) as NodeListOf<HTMLElement>;
+    const goBack = menu.querySelector(".go-back") as HTMLElement;
+    const menuTrigger = document.querySelector(
+      ".mobile-menu-trigger"
+    ) as HTMLElement;
+    const closeMenu = menu.querySelector(".mobile-menu-close") as HTMLElement;
+    let subMenu: HTMLElement | null;
+    const subMenuArray: string[] = [];
+    const subMenuTextArray: string[] = [];
+
+    function last(array: string[]): string {
+      return array[array.length - 1];
+    }
+
+    function last2(array: string[]): string {
+      return array[array.length - 2];
+    }
+
+    function toggleMenu() {
+      menu.classList.toggle("active");
+      document.querySelector(".menu-overlay")?.classList.toggle("active");
+    }
+
+    function showSubMenu(hasChildren: HTMLElement) {
+      for (let i = 0; i < submenuAll.length; i++) {
+        submenuAll[i].classList.remove("active");
+      }
+      subMenu = hasChildren.querySelector(".sub-menu") as HTMLElement;
+      subMenuArray.push(subMenu.id);
+      subMenu.classList.add("active");
+      subMenu.style.animation = "slideLeft 0.5s ease forwards";
+      const menuTitle =
+        hasChildren.querySelector(".drop-trigger")?.textContent || "";
+      subMenuTextArray.push(menuTitle);
+
+      menu.querySelector(".current-menu-title")!.innerHTML = menuTitle;
+      menu.querySelector(".mobile-menu-head")?.classList.add("active");
+    }
+
+    goBack.addEventListener("click", () => {
+      const lastItem = last(subMenuArray);
+      const lastItemText = last2(subMenuTextArray);
+      subMenuArray.pop();
+      subMenuTextArray.pop();
+      if (subMenuArray.length >= 0) {
+        document.getElementById(lastItem)!.style.animation =
+          "slideRight 0.5s ease forwards";
+        menu.querySelector(".current-menu-title")!.innerHTML = lastItemText;
+        setTimeout(() => {
+          document.getElementById(lastItem)!.classList.remove("active");
+        }, 300);
+      }
+      if (subMenuArray.length === 0) {
+        menu.querySelector(".mobile-menu-head")?.classList.remove("active");
+      }
+    });
+
+    menuMain.addEventListener("click", (e) => {
+      if (!menu.classList.contains("active")) {
+        return;
+      }
+      if (
+        e.target &&
+        (e.target as HTMLElement).closest(".nav-item-has-children")
+      ) {
+        const hasChildren = (e.target as HTMLElement).closest(
+          ".nav-item-has-children"
+        ) as HTMLElement;
+        showSubMenu(hasChildren);
+      }
+    });
+
+    menuTrigger.addEventListener("click", () => {
+      console.log("menu click");
+      toggleMenu();
+    });
+
+    closeMenu.addEventListener("click", () => {
+      toggleMenu();
+    });
+
+    document.querySelector(".menu-overlay")?.addEventListener("click", () => {
+      toggleMenu();
+    });
+    const handleResize = () => {
+      if (window.innerWidth > 991) {
+        if (menu.classList.contains("active")) {
+          toggleMenu();
+        }
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  function toggleSwitch() {
+    const month = document.querySelectorAll(".month");
+    const annual = document.querySelectorAll(".annual");
+    const toggleElement = document.getElementById(
+      "toggle"
+    ) as HTMLInputElement | null;
+    for (let i = 0; i < month.length; i++) {
+      if (toggleElement?.checked == true) {
+        month[i].classList.add("hidden");
+        annual[i].classList.remove("hidden");
+      } else {
+        month[i].classList.remove("hidden");
+        annual[i].classList.add("hidden");
+      }
+    }
+  }
   return (
     <div className="page-wrapper relative z-[1] bg-white">
       {/*...::: Header Start :::... */}
@@ -117,15 +271,15 @@ function LandingPage() {
                   <div className="text-center">
                     <div className="jos mx-auto mb-6 max-w-xl lg:max-w-2xl xl:max-w-3xl xxl:max-w-[1076px]">
                       <h1 className="mb-6 font-Kanit text-[40px] font-medium leading-none -tracking-[1px] text-[#010D09] sm:text-5xl lg:text-6xl xl:text-[76px] xxl:text-[110px]">
-                        Create a stunning website in minutes
+                        Turbocharge Your Job Search with Kazifi
                       </h1>
                     </div>
                     <div className="jos mx-auto mb-8 max-w-xl lg:mb-[50px] lg:max-w-2xl xl:max-w-3xl xxl:max-w-[896px]">
                       <p className="mb-8">
-                        Masco is a simple, easy, and powerful website editor
-                        software with all the elements you need to create a
-                        stunning website in just a few minutes. Everyone can
-                        create a website with no special skills required.
+                        Elevate your job search, application process, and
+                        tracking. Transform how you apply for jobs with Kazifi's
+                        intelligent automation and real-time insights, now
+                        enhanced with a Chrome extension.
                       </p>
                     </div>
                     <div className="mb-3 flex flex-wrap justify-center gap-6">
@@ -138,12 +292,12 @@ function LandingPage() {
                           <i className="fa-regular fa-arrow-right ml-[10px] text-2xl leading-none" />
                         </span>
                       </a>
-                      <a
+                      {/* <a
                         href="#"
                         className="btn is-outline-midnight-moss btn-animation is-large is-rounded group inline-block"
                       >
                         <span>Watch a demo</span>
-                      </a>
+                      </a> */}
                     </div>
                     <div className="mb-10 lg:mb-[60xp] xl:mb-20">
                       <span className="text-sm text-[#7F8995]">
@@ -172,7 +326,7 @@ function LandingPage() {
             {/* Hero Background Shape */}
             <div className="absolute left-0 top-0 -z-10 h-auto w-full">
               <img
-                src="https://masco-tailwind.netlify.app/assets/img/elements/hero-10-bg-shape.svg"
+                src="assets/img/hero-10-bg-shape.svg"
                 alt="hero-10-bg-shape"
                 width={1600}
                 height={650}
@@ -183,86 +337,6 @@ function LandingPage() {
           {/* Section Background */}
         </section>
         {/*...::: Hero Section End :::... */}
-        {/*...::: Brand Section Start :::... */}
-        <div className="section-brand">
-          <div className="jos">
-            {/* Section Space */}
-            <div className="py-[60px] md:py-20 lg:py-[100px]">
-              {/* Section Container */}
-              <div className="container-default">
-                <div className="mx-auto mb-10 max-w-[80%] text-center text-xl font-semibold leading-[1.4] opacity-70 md:mb-16 lg:mb-20 lg:max-w-2xl">
-                  From start-ups to Fortune 500, we partner with brands of all
-                  sizes
-                </div>
-                {/* Brand Slider */}
-                <div className="swiper brand-slider">
-                  {/* Additional required wrapper */}
-                  <div className="grid grid-cols-3 md:grid-cols-6 gap-x-6">
-                    {/* Slides */}
-                    <div className="swiper-slide">
-                      <img
-                        src="https://masco-tailwind.netlify.app/assets/img/th-11/brand-1.png"
-                        alt="brand-1"
-                        width={186}
-                        height={46}
-                        className="h-auto w-fit"
-                      />
-                    </div>
-                    <div className="swiper-slide">
-                      <img
-                        src="https://masco-tailwind.netlify.app/assets/img/th-11/brand-2.png"
-                        alt="brand-2"
-                        width={186}
-                        height={46}
-                        className="h-auto w-fit"
-                      />
-                    </div>
-                    <div className="swiper-slide">
-                      <img
-                        src="https://masco-tailwind.netlify.app/assets/img/th-11/brand-3.png"
-                        alt="brand-3"
-                        width={186}
-                        height={46}
-                        className="h-auto w-fit"
-                      />
-                    </div>
-                    <div className="swiper-slide">
-                      <img
-                        src="https://masco-tailwind.netlify.app/assets/img/th-11/brand-4.png"
-                        alt="brand-4"
-                        width={186}
-                        height={46}
-                        className="h-auto w-fit"
-                      />
-                    </div>
-                    <div className="swiper-slide">
-                      <img
-                        src="https://masco-tailwind.netlify.app/assets/img/th-11/brand-5.png"
-                        alt="brand-5"
-                        width={186}
-                        height={46}
-                        className="h-auto w-fit"
-                      />
-                    </div>
-                    <div className="swiper-slide">
-                      <img
-                        src="https://masco-tailwind.netlify.app/assets/img/th-11/brand-1.png"
-                        alt="brand-1"
-                        width={186}
-                        height={46}
-                        className="h-auto w-fit"
-                      />
-                    </div>
-                  </div>
-                </div>
-                {/* Brand Slider */}
-              </div>
-              {/* Section Container */}
-            </div>
-            {/* Section Space */}
-          </div>
-        </div>
-        {/*...::: Brand Section End :::... */}
         {/*...::: Content Section Start :::... */}
         <section className="section-content" id="section-about">
           {/* Section Spacer */}
@@ -282,23 +356,20 @@ function LandingPage() {
                       {/* Section Block */}
                       <div className="mb-5">
                         <h2 className="font-Kanit text-4xl font-medium leading-none -tracking-[1px] lg:text-5xl xl:text-7xl xxl:text-[80px]">
-                          Speed up your workflow with us
+                          Personalized Job Applications with Insightful
+                          Analytics
                         </h2>
                       </div>
                       {/* Section Block */}
                     </div>
                     {/* Section Wrapper */}
                     <p>
-                      This tool offers pre-designed templates &amp; also
-                      provides a wide range of customization options. You can
-                      personalize your websites by changing colors, fonts
-                      &amp;layouts and easily adding your own content and
-                      images.
-                    </p>
-                    <p>
-                      This tool will help you create your own website. Bring
-                      your ideas to life &amp; create something beautiful and
-                      visually stunning.
+                      Revolutionize your job hunt with our platform, blending AI
+                      and an intuitive Chrome extension for swift, precise
+                      applications. Experience speed with smart personalization,
+                      ensuring your applications are not only standout but also
+                      perfectly tailored. Fast, efficient, and brilliantly
+                      human—turbocharge your path to the next big opportunity.
                     </p>
                     <div className="mt-8 lg:mt-[50px]">
                       <a
@@ -324,15 +395,8 @@ function LandingPage() {
                         alt="content-img-1"
                         width={586}
                         height={586}
-                        className="h-full w-full"
+                        className="h-full w-96 mt-10"
                       />
-                      {/* <img
-                        src="https://masco-tailwind.netlify.app/assets/img/th-11/content-img-1-card.png"
-                        alt="content-img-1-card"
-                        width={353}
-                        height={243}
-                        className="absolute -right-[110px] bottom-12 hidden lg:inline-block"
-                      /> */}
                     </div>
                   </div>
                   {/* Content Block Right */}
@@ -356,10 +420,11 @@ function LandingPage() {
                 {/* Section Content Wrapper */}
                 <div className="jos mb-[60px] xl:mb-20">
                   {/* Section Content Block */}
-                  <div className="mx-auto max-w-[746px]">
+                  <div className="mx-auto max-w-[900px]">
                     <div className="mb-5">
                       <h2 className="text-center font-Kanit text-4xl font-medium leading-none -tracking-[1px] text-white lg:text-5xl xl:text-7xl xxl:text-[80px]">
-                        Unique features for innovative websites
+                        Kazifi's Unique Features: Simplifying Your Job Search
+                        Experience
                       </h2>
                     </div>
                   </div>
@@ -373,7 +438,7 @@ function LandingPage() {
                     <div className="rounded-[10px] bg-white/5 p-10 h-full">
                       <div className="mb-[30px] h-[70px] w-auto">
                         <img
-                          src="https://masco-tailwind.netlify.app/assets/img/icons/icon-black-home-11-feature-1.svg"
+                          src="assets/img/icons/icon-black-home-11-feature-1.svg"
                           alt="icon-black-home-11-feature-1"
                           width={79}
                           height={70}
@@ -381,12 +446,12 @@ function LandingPage() {
                       </div>
                       <div className="flex-1">
                         <div className="mb-4 font-Kanit text-2xl font-medium leading-[1.28] tracking-[-0.5px] text-white">
-                          One click to export
+                          Smart CV Tailoring
                         </div>
                         <p className="text-xl tracking-[-0.5px] text-white/80">
-                          While you are thinking, Masco is written and design
-                          begins. Just move the website to your server and
-                          create the design.
+                          Use our browser plugin to seamlessly customize your
+                          applications for each job, ensuring a perfect fit and
+                          ATS compatibility.
                         </p>
                       </div>
                     </div>
@@ -397,7 +462,7 @@ function LandingPage() {
                     <div className="rounded-[10px] bg-white/5 p-10 h-full">
                       <div className="mb-[30px] h-[70px] w-auto">
                         <img
-                          src="https://masco-tailwind.netlify.app/assets/img/icons/icon-black-home-11-feature-2.svg"
+                          src="assets/img/icons/icon-black-home-11-feature-2.svg"
                           alt="icon-black-home-11-feature-2"
                           width={78}
                           height={70}
@@ -405,12 +470,12 @@ function LandingPage() {
                       </div>
                       <div className="flex-1">
                         <div className="mb-4 font-Kanit text-2xl font-medium leading-[1.28] tracking-[-0.5px] text-white">
-                          Pre-made pages
+                          Quick CV Download
                         </div>
                         <p className="text-xl tracking-[-0.5px] text-white/80">
-                          We offer a huge collection of pre-made template design
-                          templates. All you need is to add your content and
-                          context.
+                          Download your tailored CV and cover letter directly
+                          from the plugin, streamlining your application process
+                          without tab switching.
                         </p>
                       </div>
                     </div>
@@ -421,7 +486,7 @@ function LandingPage() {
                     <div className="rounded-[10px] bg-white/5 p-10 h-full">
                       <div className="mb-[30px] h-[70px] w-auto">
                         <img
-                          src="https://masco-tailwind.netlify.app/assets/img/icons/icon-black-home-11-feature-3.svg"
+                          src="assets/img/icons/icon-black-home-11-feature-3.svg"
                           alt="icon-black-home-11-feature-3"
                           width={95}
                           height={70}
@@ -429,12 +494,12 @@ function LandingPage() {
                       </div>
                       <div className="flex-1">
                         <div className="mb-4 font-Kanit text-2xl font-medium leading-[1.28] tracking-[-0.5px] text-white">
-                          Fast customization
+                          Match Score Feedback
                         </div>
                         <p className="text-xl tracking-[-0.5px] text-white/80">
-                          The major benefits of Design-Build construction
-                          include streamlined communication and faster project
-                          completion.
+                          Receive detailed feedback and actionable tips to
+                          enhance your job application's match to requirements,
+                          improving interview chances.
                         </p>
                       </div>
                     </div>
@@ -445,7 +510,7 @@ function LandingPage() {
                     <div className="rounded-[10px] bg-white/5 p-10 h-full">
                       <div className="mb-[30px] h-[70px] w-auto">
                         <img
-                          src="https://masco-tailwind.netlify.app/assets/img/icons/icon-black-home-11-feature-4.svg"
+                          src="assets/img/icons/icon-black-home-11-feature-4.svg"
                           alt="icon-black-home-11-feature-4"
                           width={67}
                           height={70}
@@ -453,12 +518,11 @@ function LandingPage() {
                       </div>
                       <div className="flex-1">
                         <div className="mb-4 font-Kanit text-2xl font-medium leading-[1.28] tracking-[-0.5px] text-white">
-                          100% proper result
+                          CV Cover Variety
                         </div>
                         <p className="text-xl tracking-[-0.5px] text-white/80">
-                          Our software ensures a qualified result at every step
-                          of your work. You can definitely get the job done
-                          without any hassle.
+                          Choose from a vast collection of CV designs to express
+                          your professional identity and stand out.
                         </p>
                       </div>
                     </div>
@@ -474,113 +538,28 @@ function LandingPage() {
           {/* Section Background */}
         </section>
         {/*...::: Features Section End :::... */}
-        {/*...::: Content Section Start :::... */}
-        <section className="section-content">
-          {/* Section Spacer */}
-          <div className="section-space">
-            {/* Section Container */}
-            <div className="container-default">
-              <div className="flex flex-col gap-y-20 lg:gap-y-[100px] xl:gap-y-[120px]">
-                {/* Content Area Single */}
-                <div className="grid items-center gap-10 md:grid-cols-2 lg:gap-24 xl:grid-cols-[0.8fr_minmax(0,_1fr)] xl:gap-[135px]">
-                  {/* Content Block Left */}
-                  <div
-                    className="jos order-1 md:order-2"
-                    data-jos_animation="fade-right"
-                  >
-                    {/* Section Wrapper */}
-                    <div>
-                      {/* Section Block */}
-                      <div className="mb-5">
-                        <h2 className="font-Kanit text-4xl font-medium leading-none -tracking-[1px] lg:text-5xl xl:text-7xl xxl:text-[80px]">
-                          You can design every type of site
-                        </h2>
-                      </div>
-                      {/* Section Block */}
-                    </div>
-                    {/* Section Wrapper */}
-                    <p>
-                      Our website builder software offers pre-designed
-                      templates, we also provide various customization options
-                      like a blog site, business site, e-commerce, and more.
-                    </p>
-                    <p>
-                      They can changing colors, fonts, layout, adding content
-                      &amp; images. Create professional-looking websites without
-                      writing a single line of code.
-                    </p>
-                    <div className="mt-8 lg:mt-[50px]">
-                      <a
-                        href="#"
-                        className="btn is-caribbean-green is-transparent btn-animation is-large is-rounded group inline-block"
-                      >
-                        <span>
-                          Let's try it now
-                          <i className="fa-regular fa-arrow-right ml-[10px] text-2xl leading-none" />
-                        </span>
-                      </a>
-                    </div>
-                  </div>
-                  {/* Content Block Left */}
-                  {/* Content Block Right */}
-                  <div
-                    className="jos order-2 md:order-1"
-                    data-jos_animation="fade-left"
-                  >
-                    <div className="relative">
-                      <img
-                        src="https://masco-tailwind.netlify.app/assets/img/th-11/content-img-2.png"
-                        alt="content-img-1"
-                        width={586}
-                        height={586}
-                        className="h-full w-full"
-                      />
-                    </div>
-                  </div>
-                  {/* Content Block Right */}
-                </div>
-                {/* Content Area Single */}
-              </div>
-            </div>
-            {/* Section Container */}
-          </div>
-          {/* Section Spacer */}
-        </section>
-        {/*...::: Content Section End :::... */}
         {/*...::: FAQ Section Start :::... */}
         <section className="section-faq">
           {/* Section Space */}
-          <div className="section-space-bottom">
+          <div className="section-space-bottom section-space">
+            <div className="mx-auto max-w-[900px] mb-[60px] xl:mb-20">
+              <div>
+                <h2 className="mb-5 text-center font-Kanit text-4xl font-medium leading-none -tracking-[1px] text-ColorMidnightMoss lg:text-5xl xl:text-7xl xxl:text-[80px]">
+                  Transform Your Job Search with Kazifi
+                </h2>
+                <p className="text-center">
+                  Our platform revolutionizes how you find and secure
+                  opportunities. Access pre-designed templates and extensive
+                  customization options for CVs, cover letters, and more.
+                  Customize applications to stand out without writing a single
+                  line of code.
+                </p>
+              </div>
+            </div>
             {/* Section Container */}
             <div className="container-default">
               {/* FAQ Area */}
               <div className="grid items-center gap-y-10 lg:grid-cols-[1fr_minmax(0,_0.8fr)] lg:gap-x-20 xl:gap-x-24 xxl:gap-x-32">
-                {/* Content Block */}
-                <div className="jos" data-jos_animation="fade-right">
-                  {/* Section Wrapper */}
-                  <div>
-                    {/* Section Block */}
-                    <div className="mb-5">
-                      <h2 className="font-Kanit text-4xl font-medium leading-none -tracking-[1px] lg:text-5xl xl:text-7xl xxl:text-[80px]">
-                        Get a website fast in just a few steps
-                      </h2>
-                    </div>
-                    {/* Section Block */}
-                  </div>
-                  {/* Section Wrapper */}
-                  <p>
-                    Our website builder tools are designed to be user-friendly,
-                    allowing people with little or no technical skills to create
-                    and manage your own website.
-                  </p>
-                  <p>
-                    We offer intuitive interfaces, drag-and-drop functionality,
-                    &amp; pre-designed templates that simplify the process. With
-                    website builder tool, individuals can create and maintain
-                    your websites at a fraction of the cost.
-                  </p>
-                </div>
-                {/* Content Block */}
                 {/* FAQ Block */}
                 <div
                   className="jos relative z-10 flex justify-center"
@@ -595,16 +574,13 @@ function LandingPage() {
                         <button className="flex flex-1 gap-x-6 text-left">
                           <span className="inline-block h-10 w-auto">
                             <img
-                              src="https://masco-tailwind.netlify.app/assets/img/icons/icon-green-black-duotone-faq-1.svg"
+                              src="assets/img/icons/icon-green-black-duotone-faq-1.svg"
                               alt="icon-green-black-duotone-faq-1"
                               width={41}
                               height={40}
                             />
                           </span>
-                          <span className="flex-1">
-                            {" "}
-                            Create a free account{" "}
-                          </span>
+                          <span className="flex-1">Create a Free Account</span>
                         </button>
                         <span className="accordion-icon-4 absolute right-0 top-0 text-xl">
                           <i className="fa-solid fa-chevron-down" />
@@ -614,8 +590,8 @@ function LandingPage() {
                       {/* Accordion Body */}
                       <div className="accordion-body ml-16 text-xl leading-[1.6] -tracking-[0.5px] text-ColorMidnightMoss">
                         <p className="pt-5">
-                          Open a free account with no credit card. Easy to use
-                          anytime on any device.
+                          Sign up for free, no credit card required. Start
+                          transforming your job search on any device.
                         </p>
                       </div>
                       {/* Accordion Body */}
@@ -628,16 +604,13 @@ function LandingPage() {
                         <button className="flex flex-1 gap-x-6 text-left">
                           <span className="inline-block h-10 w-auto">
                             <img
-                              src="https://masco-tailwind.netlify.app/assets/img/icons/icon-green-black-duotone-faq-2.svg"
+                              src="assets/img/icons/icon-green-black-duotone-faq-2.svg"
                               alt="icon-green-black-duotone-faq-2"
                               width={45}
                               height={40}
                             />
                           </span>
-                          <span className="flex-1">
-                            {" "}
-                            Design by drag and drop{" "}
-                          </span>
+                          <span className="flex-1">Customize with Ease</span>
                         </button>
                         <span className="accordion-icon-4 absolute right-0 top-0 text-xl">
                           <i className="fa-solid fa-chevron-down" />
@@ -647,8 +620,8 @@ function LandingPage() {
                       {/* Accordion Body */}
                       <div className="accordion-body ml-16 text-xl leading-[1.6] -tracking-[0.5px] text-ColorMidnightMoss">
                         <p className="pt-5">
-                          Open a free account with no credit card. Easy to use
-                          anytime on any device.
+                          Personalize your job applications using our
+                          drag-and-drop feature. No technical skills necessary.
                         </p>
                       </div>
                       {/* Accordion Body */}
@@ -661,13 +634,13 @@ function LandingPage() {
                         <button className="flex flex-1 gap-x-6 text-left">
                           <span className="inline-block h-10 w-auto">
                             <img
-                              src="https://masco-tailwind.netlify.app/assets/img/icons/icon-green-black-duotone-faq-3.svg"
+                              src="assets/img/icons/icon-green-black-duotone-faq-3.svg"
                               alt="icon-green-black-duotone-faq-3"
                               width={35}
                               height={40}
                             />
                           </span>
-                          <span className="flex-1"> Launch your website </span>
+                          <span className="flex-1"> Launch Your Career </span>
                         </button>
                         <span className="accordion-icon-4 absolute right-0 top-0 text-xl">
                           <i className="fa-solid fa-chevron-down" />
@@ -677,8 +650,9 @@ function LandingPage() {
                       {/* Accordion Body */}
                       <div className="accordion-body ml-16 text-xl leading-[1.6] -tracking-[0.5px] text-ColorMidnightMoss">
                         <p className="pt-5">
-                          Open a free account with no credit card. Easy to use
-                          anytime on any device.
+                          Submit applications and track their progress with
+                          real-time insights. You're not just applying; you're
+                          advancing.
                         </p>
                       </div>
                       {/* Accordion Body */}
@@ -688,6 +662,27 @@ function LandingPage() {
                   {/* Accordion List */}
                 </div>
                 {/* FAQ Block */}
+                {/* Content Block */}
+                <div className="jos" data-jos_animation="fade-right">
+                  {/* Section Wrapper */}
+                  <div>
+                    {/* Section Block */}
+                    <div className="mb-5">
+                      <h2 className="font-Kanit text-4xl font-medium leading-none -tracking-[1px] lg:text-5xl xl:text-7xl xxl:text-[80px]">
+                        Start Your Journey with Kazifi
+                      </h2>
+                    </div>
+                    {/* Section Block */}
+                  </div>
+                  {/* Section Wrapper */}
+                  <p>
+                    Kazifi makes creating standout job applications quick and
+                    easy, designed for all skill levels. Tailor and track your
+                    applications effortlessly with our intuitive interface,
+                    drag-and-drop functionality, and pre-designed templates.
+                  </p>
+                </div>
+                {/* Content Block */}
               </div>
               {/* FAQ Area */}
             </div>
@@ -734,7 +729,7 @@ function LandingPage() {
                         id="toggle"
                         type="checkbox"
                         className="hidden"
-                        // onClick="toggleSwitch()"
+                        onClick={toggleSwitch}
                       />
                       {/* dot */}
                       <span className="toggle_dot absolute h-[35px] w-[35px] rounded-full bg-ColorCaribbeanGreen transition-all duration-300" />
@@ -989,146 +984,7 @@ function LandingPage() {
           {/* Section Space */}
         </section>
         {/*...::: Pricing Section End :::... */}
-        {/*...::: Testimonial Section Start :::... */}
-        <section className="section-testimonial" id="section-testimonial">
-          {/* Section Background */}
-          <div className="rounded-[30px] bg-ColorCaribbeanGreen lg:rounded-[50px]">
-            {/* Section Space */}
-            <div className="section-space">
-              {/* Section Container */}
-              <div className="container-default">
-                {/* Section Content Wrapper */}
-                <div className="jos mb-[60px] xl:mb-20">
-                  {/* Section Content Block */}
-                  <div className="max-w-[746px]">
-                    <div className="mb-5">
-                      <h2 className="font-Kanit text-4xl font-medium leading-none -tracking-[1px] text-ColorMidnightMoss lg:text-5xl xl:text-7xl xxl:text-[80px]">
-                        Users share their experiences with us
-                      </h2>
-                    </div>
-                  </div>
-                  {/* Section Content Block */}
-                </div>
-                {/* Section Content Wrapper */}
-                {/* Testimonial Slider */}
-                <div className="jos swiper testimonial-one">
-                  <div className="swiper-wrapper">
-                    <div className="swiper-slide">
-                      <div className="flex flex-col items-center gap-12 md:flex-row md:gap-16 lg:gap-[90px] xl:gap-[134px]">
-                        <div className="h-64 w-64 overflow-hidden rounded-[10px] lg:h-[431px] lg:w-[416px]">
-                          <img
-                            src="https://masco-tailwind.netlify.app/assets/img/th-11/testimonial-img.png"
-                            alt="testimonial-img"
-                            width={416}
-                            height={431}
-                            className="h-full w-full object-cover"
-                          />
-                        </div>
-                        <div className="flex-1 text-ColorMidnightMoss">
-                          <blockquote className="mb-10 text-xl font-semibold -tracking-[1px] lg:text-2xl xl:text-3xl">
-                            More than just a website builder. The options are
-                            great for building a website and have lots of
-                            features. When I got stuck which was a lot I was
-                            always supported and helped very quickly. Even
-                            offered to join a tutorial with Masco which was very
-                            informative. Masco was amazing like an
-                            accountability partner.
-                          </blockquote>
-                          <div className="">
-                            <span className="block text-xl font-semibold">
-                              Robertson Paul
-                            </span>
-                            <span className="block">
-                              Co-founder@ xyz company
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="swiper-slide">
-                      <div className="flex flex-col items-center gap-12 md:flex-row md:gap-16 lg:gap-[90px] xl:gap-[134px]">
-                        <div className="h-64 w-64 overflow-hidden rounded-[10px] lg:h-[431px] lg:w-[416px]">
-                          <img
-                            src="https://masco-tailwind.netlify.app/assets/img/th-11/testimonial-img.png"
-                            alt="testimonial-img"
-                            width={416}
-                            height={431}
-                            className="h-full w-full object-cover"
-                          />
-                        </div>
-                        <div className="flex-1 text-ColorMidnightMoss">
-                          <blockquote className="mb-10 text-xl font-semibold -tracking-[1px] lg:text-2xl xl:text-3xl">
-                            More than just a website builder. The options are
-                            great for building a website and have lots of
-                            features. When I got stuck which was a lot I was
-                            always supported and helped very quickly. Even
-                            offered to join a tutorial with Masco which was very
-                            informative. Masco was amazing like an
-                            accountability partner.
-                          </blockquote>
-                          <div className="">
-                            <span className="block text-xl font-semibold">
-                              Robertson Paul
-                            </span>
-                            <span className="block">
-                              Co-founder@ xyz company
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="swiper-slide">
-                      <div className="flex flex-col items-center gap-12 md:flex-row md:gap-16 lg:gap-[90px] xl:gap-[134px]">
-                        <div className="h-64 w-64 overflow-hidden rounded-[10px] lg:h-[431px] lg:w-[416px]">
-                          <img
-                            src="https://masco-tailwind.netlify.app/assets/img/th-11/testimonial-img.png"
-                            alt="testimonial-img"
-                            width={416}
-                            height={431}
-                            className="h-full w-full object-cover"
-                          />
-                        </div>
-                        <div className="flex-1 text-ColorMidnightMoss">
-                          <blockquote className="mb-10 text-xl font-semibold -tracking-[1px] lg:text-2xl xl:text-3xl">
-                            More than just a website builder. The options are
-                            great for building a website and have lots of
-                            features. When I got stuck which was a lot I was
-                            always supported and helped very quickly. Even
-                            offered to join a tutorial with Masco which was very
-                            informative. Masco was amazing like an
-                            accountability partner.
-                          </blockquote>
-                          <div className="">
-                            <span className="block text-xl font-semibold">
-                              Robertson Paul
-                            </span>
-                            <span className="block">
-                              Co-founder@ xyz company
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  {/* SLider Navigation */}
-                  <div className="relative z-10 mt-[50px] flex flex-row-reverse justify-center gap-6 lg:-mt-[50px] lg:justify-start">
-                    <div className="slider-nav-btn-next flex h-[50px] w-[50px] items-center justify-center rounded-[50%] border border-ColorMidnightMoss bg-transparent text-ColorMidnightMoss transition-all duration-300 hover:bg-ColorMidnightMoss hover:text-ColorCaribbeanGreen">
-                      <i className="fa-solid fa-chevron-right" />
-                    </div>
-                    <div className="slider-nav-btn-prev flex h-[50px] w-[50px] items-center justify-center rounded-[50%] border border-ColorMidnightMoss bg-transparent text-ColorMidnightMoss transition-all duration-300 hover:bg-ColorMidnightMoss hover:text-ColorCaribbeanGreen">
-                      <i className="fa-solid fa-chevron-left" />
-                    </div>
-                  </div>
-                </div>
-                {/* Testimonial Slider */}
-              </div>
-              {/* Section Container */}
-            </div>
-            {/* Section Space */}
-          </div>
-          {/* Section Background */}
-        </section>
-        {/*...::: Testimonial Section End :::... */}
+
         {/*...::: FAQ Section Start :::... */}
         <section className="section-faq">
           {/* Section Space */}
@@ -1141,7 +997,7 @@ function LandingPage() {
                 <div className="mx-auto max-w-[746px]">
                   <div className="mb-5">
                     <h2 className="text-center font-Kanit text-4xl font-medium leading-none -tracking-[1px] text-ColorMidnightMoss lg:text-5xl xl:text-7xl xxl:text-[80px]">
-                      Affordable plans to suit your needs
+                      Frequently Asked Questions (FAQs)
                     </h2>
                   </div>
                 </div>
@@ -1155,7 +1011,7 @@ function LandingPage() {
                   {/* Accordion Header */}
                   <div className="accordion-header flex justify-between gap-6 font-Kanit text-xl font-medium leading-[1.28] -tracking-[1px] text-ColorMidnightMoss lg:text-2xl xl:text-[28px]">
                     <button className="flex-1 text-left">
-                      Can I connect my domain with my new create website site?
+                      How does Kazifi ensure my application passes ATS checks?
                     </button>
                     <div className="accordion-icon-5 relative flex h-[50px] w-[50px] items-center justify-center rounded-[50%] border-2 border-ColorMidnightMoss text-2xl text-ColorMidnightMoss">
                       <i className="fa-regular fa-plus" />
@@ -1165,10 +1021,9 @@ function LandingPage() {
                   {/* Accordion Body */}
                   <div className="accordion-body max-w-[1156px] text-xl text-[#2c2c2c] opacity-80">
                     <p className="pt-4 lg:pt-2 xl:pt-1">
-                      Yes! Custom domain is a feature in paid plans. Masco
-                      provides detailed instructions to help you connect your
-                      site with a domain already my own. Don't have a domain?
-                      Can I buy one from right within Masco!
+                      Kazifi optimizes your CV and cover letters for ATS, using
+                      targeted keywords and formats to enhance visibility to
+                      employers.
                     </p>
                   </div>
                   {/* Accordion Body */}
@@ -1179,7 +1034,8 @@ function LandingPage() {
                   {/* Accordion Header */}
                   <div className="accordion-header flex justify-between gap-6 font-Kanit text-xl font-medium leading-[1.28] -tracking-[1px] text-ColorMidnightMoss lg:text-2xl xl:text-[28px]">
                     <button className="flex-1 text-left">
-                      How often does my team upload new templates?
+                      Can I apply directly to jobs on platforms like LinkedIn
+                      and Indeed with Kazifi?
                     </button>
                     <div className="accordion-icon-5 relative flex h-[50px] w-[50px] items-center justify-center rounded-[50%] border-2 border-ColorMidnightMoss text-2xl text-ColorMidnightMoss">
                       <i className="fa-regular fa-plus" />
@@ -1189,10 +1045,10 @@ function LandingPage() {
                   {/* Accordion Body */}
                   <div className="accordion-body max-w-[1156px] text-xl text-[#2c2c2c] opacity-80">
                     <p className="pt-4 lg:pt-2 xl:pt-1">
-                      Yes! Custom domain is a feature in paid plans. Masco
-                      provides detailed instructions to help you connect your
-                      site with a domain already my own. Don't have a domain?
-                      Can I buy one from right within Masco!
+                      Yes, our Chrome extension allows for direct applications
+                      on platforms such as LinkedIn and Indeed, integrating
+                      Kazifi’s features into your browser for a seamless
+                      process.
                     </p>
                   </div>
                   {/* Accordion Body */}
@@ -1203,7 +1059,8 @@ function LandingPage() {
                   {/* Accordion Header */}
                   <div className="accordion-header flex justify-between gap-6 font-Kanit text-xl font-medium leading-[1.28] -tracking-[1px] text-ColorMidnightMoss lg:text-2xl xl:text-[28px]">
                     <button className="flex-1 text-left">
-                      Can I create more sites than my plan allows?
+                      What makes Kazifi's job suitability scoring unique
+                      regarding ATS compatibility?
                     </button>
                     <div className="accordion-icon-5 relative flex h-[50px] w-[50px] items-center justify-center rounded-[50%] border-2 border-ColorMidnightMoss text-2xl text-ColorMidnightMoss">
                       <i className="fa-regular fa-plus" />
@@ -1213,10 +1070,9 @@ function LandingPage() {
                   {/* Accordion Body */}
                   <div className="accordion-body max-w-[1156px] text-xl text-[#2c2c2c] opacity-80">
                     <p className="pt-4 lg:pt-2 xl:pt-1">
-                      Yes! Custom domain is a feature in paid plans. Masco
-                      provides detailed instructions to help you connect your
-                      site with a domain already my own. Don't have a domain?
-                      Can I buy one from right within Masco!
+                      Our scoring assesses both job requirement match and ATS
+                      compatibility, offering insights to boost your
+                      application's recruiter visibility.
                     </p>
                   </div>
                   {/* Accordion Body */}
@@ -1227,7 +1083,8 @@ function LandingPage() {
                   {/* Accordion Header */}
                   <div className="accordion-header flex justify-between gap-6 font-Kanit text-xl font-medium leading-[1.28] -tracking-[1px] text-ColorMidnightMoss lg:text-2xl xl:text-[28px]">
                     <button className="flex-1 text-left">
-                      How do I cancel the service?
+                      Do I need technical expertise to use Kazifi and its Chrome
+                      plugin?
                     </button>
                     <div className="accordion-icon-5 relative flex h-[50px] w-[50px] items-center justify-center rounded-[50%] border-2 border-ColorMidnightMoss text-2xl text-ColorMidnightMoss">
                       <i className="fa-regular fa-plus" />
@@ -1237,10 +1094,10 @@ function LandingPage() {
                   {/* Accordion Body */}
                   <div className="accordion-body max-w-[1156px] text-xl text-[#2c2c2c] opacity-80">
                     <p className="pt-4 lg:pt-2 xl:pt-1">
-                      Yes! Custom domain is a feature in paid plans. Masco
-                      provides detailed instructions to help you connect your
-                      site with a domain already my own. Don't have a domain?
-                      Can I buy one from right within Masco!
+                      No, Kazifi and its Chrome plugin are designed for all
+                      users, offering an intuitive interface and easy
+                      drag-and-drop functionality for creating ATS-friendly
+                      applications.
                     </p>
                   </div>
                   {/* Accordion Body */}
@@ -1251,7 +1108,8 @@ function LandingPage() {
                   {/* Accordion Header */}
                   <div className="accordion-header flex justify-between gap-6 font-Kanit text-xl font-medium leading-[1.28] -tracking-[1px] text-ColorMidnightMoss lg:text-2xl xl:text-[28px]">
                     <button className="flex-1 text-left">
-                      Can I pay in other currencies?
+                      How does the Quick CV Download feature work with the
+                      Chrome plugin?
                     </button>
                     <div className="accordion-icon-5 relative flex h-[50px] w-[50px] items-center justify-center rounded-[50%] border-2 border-ColorMidnightMoss text-2xl text-ColorMidnightMoss">
                       <i className="fa-regular fa-plus" />
@@ -1261,10 +1119,9 @@ function LandingPage() {
                   {/* Accordion Body */}
                   <div className="accordion-body max-w-[1156px] text-xl text-[#2c2c2c] opacity-80">
                     <p className="pt-4 lg:pt-2 xl:pt-1">
-                      Yes! Custom domain is a feature in paid plans. Masco
-                      provides detailed instructions to help you connect your
-                      site with a domain already my own. Don't have a domain?
-                      Can I buy one from right within Masco!
+                      This feature lets you instantly download your
+                      ATS-optimized CV and cover letter while browsing job
+                      listings, making your application process efficient.
                     </p>
                   </div>
                   {/* Accordion Body */}
@@ -1293,7 +1150,7 @@ function LandingPage() {
                   {/* Section Block */}
                   <div className="max-w-[400px] md:max-w-[500px] lg:max-w-[550px]">
                     <h2 className="text-white font-bold  text-5xl">
-                      Ready to grow your business digitally?
+                      Ready to Revolutionize Your Job Search?
                     </h2>
                   </div>
                   {/* Section Block */}
@@ -1301,7 +1158,7 @@ function LandingPage() {
                     className="btn is-blue is-rounded btn-animation is-large group"
                     href="/portfolio"
                   >
-                    <span>Let's start here</span>
+                    <span>Begin Your Journey Here</span>
                   </a>
                 </div>
                 {/* Section Wrapper */}
@@ -1312,7 +1169,7 @@ function LandingPage() {
             {/* CTA Shape */}
             <div className="absolute right-[9%] top-8 -z-10  xxl:block">
               <img
-                src="https://masco-tailwind.netlify.app/assets/img/elements/cta-1-shape-1.svg"
+                src="assets/img/icons/cta-1-shape-1.svg"
                 alt="cta-1-shape-1"
                 width={115}
                 height={130}
@@ -1336,7 +1193,7 @@ function LandingPage() {
                     {/* Footer Logo */}
                     <a href="/">
                       <img
-                        src="assets/img/logo-light.png"
+                        src="assets/img/logo-light.svg"
                         alt="Masco"
                         width={109}
                         height={24}
@@ -1346,9 +1203,13 @@ function LandingPage() {
                     <div>
                       {/* Footer About Text */}
                       <div className="lg:max-w-[416px]">
-                        We are strategic &amp; creative digital agency who are
-                        focused on user experience, mobile, social, data
-                        gathering and promotional offerings.
+                        Kazifi is a forward-thinking digital platform dedicated
+                        to transforming the job application process. We
+                        specialize in leveraging AI, intuitive Chrome
+                        extensions, and insightful analytics to enhance user
+                        experience, streamline applications, and maximize your
+                        career opportunities with smart data utilization and
+                        personalized application strategies.
                       </div>
                       {/* Footer Mail */}
                       <a
