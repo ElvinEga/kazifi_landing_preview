@@ -8,7 +8,7 @@ onload = () => {
     debugMode: true,
     animation: "flip",
     duration: 0.7,
-    rootMargin: "0% 0% 0% 0%",
+    rootMargin: "0% 0% 40% 0%",
   };
   JOS.init(options);
   //JOS.version();
@@ -268,13 +268,20 @@ function LandingPage() {
                 {/* Hero Area */}
                 <div className="flex flex-col items-center justify-center">
                   {/* Hero Content Block */}
-                  <div className="text-center">
-                    <div className="jos mx-auto mb-6 max-w-xl lg:max-w-2xl xl:max-w-3xl xxl:max-w-[1076px]">
+                  <div
+                    className="text-center jos"
+                    data-jos_stagger="fade-up"
+                    data-jos_stagger_anchor="#container-default-1"
+                    data-jos_stagger_seq="0.1"
+                    data-jos_stagger_delay="0.1"
+                    id="container-default-1"
+                  >
+                    <div className=" mx-auto mb-6 max-w-xl lg:max-w-2xl xl:max-w-3xl xxl:max-w-[1076px]">
                       <h1 className="mb-6 font-Kanit text-[40px] font-medium leading-none -tracking-[1px] text-[#010D09] sm:text-5xl lg:text-6xl xl:text-[76px] xxl:text-[110px]">
                         Turbocharge Your Job Search with Kazifi
                       </h1>
                     </div>
-                    <div className="jos mx-auto mb-8 max-w-xl lg:mb-[50px] lg:max-w-2xl xl:max-w-3xl xxl:max-w-[896px]">
+                    <div className=" mx-auto mb-8 max-w-xl lg:mb-[50px] lg:max-w-2xl xl:max-w-3xl xxl:max-w-[896px]">
                       <p className="mb-8">
                         Elevate your job search, application process, and
                         tracking. Transform how you apply for jobs with Kazifi's
@@ -349,6 +356,7 @@ function LandingPage() {
                   {/* Content Block Left */}
                   <div
                     className="jos order-1 md:order-2"
+                    id="container-default-2"
                     data-jos_animation="fade-right"
                   >
                     {/* Section Wrapper */}
@@ -371,7 +379,13 @@ function LandingPage() {
                       perfectly tailored. Fast, efficient, and brilliantly
                       human—turbocharge your path to the next big opportunity.
                     </p>
-                    <div className="mt-8 lg:mt-[50px]">
+                    <div
+                      className="mt-8 lg:mt-[50px] jos"
+                      data-jos_animation="fade-right"
+                      data-jos_delay="0.1"
+                      data-jos_duration="0.5"
+                      data-jos_anchor="#container-default-2"
+                    >
                       <a
                         href="#"
                         className="btn is-caribbean-green is-transparent btn-animation is-large is-rounded group inline-block"
@@ -432,9 +446,16 @@ function LandingPage() {
                 </div>
                 {/* Section Content Wrapper */}
                 {/* Feature List */}
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div
+                  className="grid grid-cols-1 gap-6 md:grid-cols-2 jos"
+                  id="container-default-3"
+                  data-jos_stagger="fade"
+                  data-jos_stagger_anchor="#container-default-3"
+                  data-jos_stagger_seq="0.3"
+                  data-jos_stagger_duration="0.5"
+                >
                   {/* Feature Item */}
-                  <div className="jos" data-jos_delay={0}>
+                  <div>
                     <div className="rounded-[10px] bg-white/5 p-10 h-full">
                       <div className="mb-[30px] h-[70px] w-auto">
                         <img
@@ -458,7 +479,7 @@ function LandingPage() {
                   </div>
                   {/* Feature Item */}
                   {/* Feature Item */}
-                  <div className="jos" data-jos_delay="0.3">
+                  <div>
                     <div className="rounded-[10px] bg-white/5 p-10 h-full">
                       <div className="mb-[30px] h-[70px] w-auto">
                         <img
@@ -482,7 +503,7 @@ function LandingPage() {
                   </div>
                   {/* Feature Item */}
                   {/* Feature Item */}
-                  <div className="jos" data-jos_delay="0.6">
+                  <div>
                     <div className="rounded-[10px] bg-white/5 p-10 h-full">
                       <div className="mb-[30px] h-[70px] w-auto">
                         <img
@@ -506,7 +527,7 @@ function LandingPage() {
                   </div>
                   {/* Feature Item */}
                   {/* Feature Item */}
-                  <div className="jos" data-jos_delay="0.9">
+                  <div>
                     <div className="rounded-[10px] bg-white/5 p-10 h-full">
                       <div className="mb-[30px] h-[70px] w-auto">
                         <img
@@ -541,9 +562,17 @@ function LandingPage() {
         {/*...::: FAQ Section Start :::... */}
         <section className="section-faq">
           {/* Section Space */}
-          <div className="section-space-bottom section-space">
+          <div
+            className="section-space-bottom section-space"
+            id="container-default-4"
+          >
             <div className="mx-auto max-w-[900px] mb-[60px] xl:mb-20">
-              <div>
+              <div
+                className="jos"
+                data-jos_stagger="fade-up"
+                data-jos_stagger_anchor="#container-default-4"
+                data-jos_stagger_seq="0.1"
+              >
                 <h2 className="mb-5 text-center font-Kanit text-4xl font-medium leading-none -tracking-[1px] text-ColorMidnightMoss lg:text-5xl xl:text-7xl xxl:text-[80px]">
                   Transform Your Job Search with Kazifi
                 </h2>
@@ -564,9 +593,16 @@ function LandingPage() {
                 <div
                   className="jos relative z-10 flex justify-center"
                   data-jos_animation="fade-left"
+                  id="container-default-5"
                 >
                   {/* Accordion List */}
-                  <ul className="grid gap-6 rounded-[10px]">
+                  <ul
+                    className="grid gap-6 rounded-[10px] jos"
+                    data-jos_stagger="skew-up"
+                    data-jos_stagger_anchor="#container-default-5"
+                    data-jos_stagger_duration="0.3"
+                    data-jos_stagger_seq="0.1"
+                  >
                     {/* Accordion Item */}
                     <li className="accordion-item active overflow-hidden rounded-[10px] border border-ColorMidnightMoss p-5">
                       {/* Accordion Header */}
@@ -742,9 +778,15 @@ function LandingPage() {
                 </div>
                 {/* Pricing Button Block */}
                 {/* Pricing List */}
-                <div className="grid items-center gap-x-6 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
+                <div
+                  className="grid items-center gap-x-6 gap-y-10 md:grid-cols-2 lg:grid-cols-3 jos"
+                  data-jos_stagger="flip-left"
+                  id="container-default-6"
+                  data-jos_stagger_anchor="#container-default-6"
+                  data-jos_stagger_duration="0.5"
+                >
                   {/* Pricing Item */}
-                  <div className="jos" data-jos_animation="flip-left">
+                  <div>
                     <div className="rounded-[10px] bg-[#FFFCEF] p-7 xl:p-10">
                       {/* Pricing Content Top */}
                       <div className="text-center">
@@ -774,7 +816,13 @@ function LandingPage() {
                       <div className="my-10 h-px w-full bg-ColorBlack/10" />
                       {/* Horizontal Line Separator */}
                       {/* Pricing Data list */}
-                      <ul className="flex flex-col gap-y-4 font-semibold text-ColorMidnightMoss/80 xl:px-[18px]">
+                      <ul
+                        className="flex flex-col gap-y-4 font-semibold text-ColorMidnightMoss/80 xl:px-[18px] jos"
+                        data-jos_stagger="zoom"
+                        data-jos_stagger_anchor="#container-default-6"
+                        data-jos_stagger_seq="0.1"
+                        data-jos_duration="1"
+                      >
                         <li className="flex gap-x-3">
                           <span className="text-xl text-ColorCaribbeanGreen">
                             <i className="fa-solid fa-check" />
@@ -817,7 +865,7 @@ function LandingPage() {
                   </div>
                   {/* Pricing Item */}
                   {/* Pricing Item */}
-                  <div className="jos" data-jos_animation="flip-left">
+                  <div>
                     <div className="rounded-[10px] bg-ColorMidnightMoss p-7 xl:p-10">
                       {/* Pricing Content Top */}
                       <div className="text-center">
@@ -847,7 +895,13 @@ function LandingPage() {
                       <div className="my-10 h-px w-full bg-white/10" />
                       {/* Horizontal Line Separator */}
                       {/* Pricing Data list */}
-                      <ul className="flex flex-col gap-y-4 font-semibold text-white/80 xl:px-[18px]">
+                      <ul
+                        className="flex flex-col gap-y-4 font-semibold text-white/80 xl:px-[18px] jos"
+                        data-jos_stagger="zoom"
+                        data-jos_stagger_anchor="#container-default-6"
+                        data-jos_stagger_seq="0.1"
+                        data-jos_duration="1"
+                      >
                         <li className="flex gap-x-3">
                           <span className="text-xl text-ColorCaribbeanGreen">
                             <i className="fa-solid fa-check" />
@@ -902,7 +956,7 @@ function LandingPage() {
                   </div>
                   {/* Pricing Item */}
                   {/* Pricing Item */}
-                  <div className="jos" data-jos_animation="flip-left">
+                  <div>
                     <div className="rounded-[10px] bg-[#FFFCEF] p-7 xl:p-10">
                       {/* Pricing Content Top */}
                       <div className="text-center">
@@ -932,7 +986,13 @@ function LandingPage() {
                       <div className="my-10 h-px w-full bg-ColorBlack/10" />
                       {/* Horizontal Line Separator */}
                       {/* Pricing Data list */}
-                      <ul className="flex flex-col gap-y-4 font-semibold text-ColorMidnightMoss/80 xl:px-[18px]">
+                      <ul
+                        className="flex flex-col gap-y-4 font-semibold text-ColorMidnightMoss/80 xl:px-[18px] jos"
+                        data-jos_stagger="zoom"
+                        data-jos_stagger_anchor="#container-default-6"
+                        data-jos_stagger_seq="0.1"
+                        data-jos_duration="1"
+                      >
                         <li className="flex gap-x-3">
                           <span className="text-xl text-ColorCaribbeanGreen">
                             <i className="fa-solid fa-check" />
