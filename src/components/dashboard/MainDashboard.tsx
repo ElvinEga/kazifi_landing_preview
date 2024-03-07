@@ -12,7 +12,7 @@ const MainDashboard = ({ children }: contentProps) => {
       {/* ========== MAIN CONTENT ========== */}
       <Sidebar />
       {/* Content */}
-      <div className="w-full pt-4 px-4 sm:px-6 md:px-8 lg:pl-72">
+      <div className="w-full pt-4 px-4 sm:px-6 md:px-8 lg:pl-32">
         {children}
       </div>
       {/* End Content */}

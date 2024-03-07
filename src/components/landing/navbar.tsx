@@ -1,124 +1,212 @@
 "use client";
-
+import { useEffect } from "react";
 const Navbar = () => {
-  // const [setIsSticky] = useState(false);
+  useEffect(() => {
+    const accordions = document.querySelectorAll(".accordion-item");
+    accordions.forEach((item) => {
+      const label = item.querySelector(".accordion-header");
+      label?.addEventListener("click", () => {
+        accordions.forEach((accordionItem) => {
+          accordionItem.classList.remove("active");
+        });
+        item.classList.toggle("active");
+      });
+    });
+    window.addEventListener("scroll", function () {
+      const header = document.querySelector("header");
+      header?.classList.toggle("scrolling", window.scrollY > 0);
+    });
+  }, []);
 
-  // useEffect(() => {
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, []);
+  useEffect(() => {
+    const menu = document.querySelector(".menu-block") as HTMLElement;
+    const menuMain = menu.querySelector(".site-menu-main") as HTMLElement;
+    const submenuAll = menu.querySelectorAll(
+      ".sub-menu"
+    ) as NodeListOf<HTMLElement>;
+    const goBack = menu.querySelector(".go-back") as HTMLElement;
+    const menuTrigger = document.querySelector(
+      ".mobile-menu-trigger"
+    ) as HTMLElement;
+    const closeMenu = menu.querySelector(".mobile-menu-close") as HTMLElement;
+    let subMenu: HTMLElement | null;
+    const subMenuArray: string[] = [];
+    const subMenuTextArray: string[] = [];
 
-  // const handleScroll = () => {
-  //   const scrollPosition = window.pageYOffset;
-  //   if (scrollPosition > 50) {
-  //     setIsSticky(true);
-  //   } else {
-  //     setIsSticky(false);
-  //   }
-  // };
+    function last(array: string[]): string {
+      return array[array.length - 1];
+    }
+
+    function last2(array: string[]): string {
+      return array[array.length - 2];
+    }
+
+    function toggleMenu() {
+      menu.classList.toggle("active");
+      document.querySelector(".menu-overlay")?.classList.toggle("active");
+    }
+
+    function showSubMenu(hasChildren: HTMLElement) {
+      for (let i = 0; i < submenuAll.length; i++) {
+        submenuAll[i].classList.remove("active");
+      }
+      subMenu = hasChildren.querySelector(".sub-menu") as HTMLElement;
+      subMenuArray.push(subMenu.id);
+      subMenu.classList.add("active");
+      subMenu.style.animation = "slideLeft 0.5s ease forwards";
+      const menuTitle =
+        hasChildren.querySelector(".drop-trigger")?.textContent || "";
+      subMenuTextArray.push(menuTitle);
+
+      menu.querySelector(".current-menu-title")!.innerHTML = menuTitle;
+      menu.querySelector(".mobile-menu-head")?.classList.add("active");
+    }
+
+    goBack.addEventListener("click", () => {
+      const lastItem = last(subMenuArray);
+      const lastItemText = last2(subMenuTextArray);
+      subMenuArray.pop();
+      subMenuTextArray.pop();
+      if (subMenuArray.length >= 0) {
+        document.getElementById(lastItem)!.style.animation =
+          "slideRight 0.5s ease forwards";
+        menu.querySelector(".current-menu-title")!.innerHTML = lastItemText;
+        setTimeout(() => {
+          document.getElementById(lastItem)!.classList.remove("active");
+        }, 300);
+      }
+      if (subMenuArray.length === 0) {
+        menu.querySelector(".mobile-menu-head")?.classList.remove("active");
+      }
+    });
+
+    menuMain.addEventListener("click", (e) => {
+      if (!menu.classList.contains("active")) {
+        return;
+      }
+      if (
+        e.target &&
+        (e.target as HTMLElement).closest(".nav-item-has-children")
+      ) {
+        const hasChildren = (e.target as HTMLElement).closest(
+          ".nav-item-has-children"
+        ) as HTMLElement;
+        showSubMenu(hasChildren);
+      }
+    });
+
+    menuTrigger.addEventListener("click", () => {
+      console.log("menu click");
+      toggleMenu();
+    });
+
+    closeMenu.addEventListener("click", () => {
+      toggleMenu();
+    });
+
+    document.querySelector(".menu-overlay")?.addEventListener("click", () => {
+      toggleMenu();
+    });
+    const handleResize = () => {
+      if (window.innerWidth > 991) {
+        if (menu.classList.contains("active")) {
+          toggleMenu();
+        }
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <>
       {/*...::: Header Start :::... */}
-      {/* ========== HEADER ========== */}
-      <header className="flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full bg-white border-b  border-dashed  border-neutral-400 text-sm py-3 sm:py-0 dark:bg-gray-800 dark:border-gray-700">
-        <nav
-          className="relative max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8"
-          aria-label="Global"
-        >
-          <div className="flex items-center justify-between">
-            <a
-              className="flex-none text-xl font-semibold dark:text-white"
-              href="#"
-              aria-label="Brand"
-            >
+      <header
+        className="site-header site-header--sticky mobile-sticky-enable is--white py-3"
+        id="sticky-menu"
+      >
+        <div className="container-default">
+          <div className="flex items-center justify-between gap-x-8">
+            {/* Header Logo */}
+            <a className="" href="/">
               <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/7caee1606722fced8a74853510b9bdd8fd9d5d68a916205740ae3ace2c4ee3bf?"
-                className="aspect-[3.33] w-[108px]"
+                src="assets/img/logo.png"
+                alt="Masco"
+                width={109}
+                height={24}
               />
             </a>
-            <div className="sm:hidden">
-              <button
-                type="button"
-                className="hs-collapse-toggle size-9 flex justify-center items-center text-sm font-semibold rounded-lg border border-dashed  border-neutral-400 text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                data-hs-collapse="#navbar-collapse-with-animation"
-                aria-controls="navbar-collapse-with-animation"
-                aria-label="Toggle navigation"
-              >
-                <svg
-                  className="hs-collapse-open:hidden flex-shrink-0 size-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width={24}
-                  height={24}
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <line x1={3} x2={21} y1={6} y2={6} />
-                  <line x1={3} x2={21} y1={12} y2={12} />
-                  <line x1={3} x2={21} y1={18} y2={18} />
-                </svg>
-                <svg
-                  className="hs-collapse-open:block hidden flex-shrink-0 size-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width={24}
-                  height={24}
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M18 6 6 18" />
-                  <path d="m6 6 12 12" />
-                </svg>
-              </button>
+            {/* Header Logo */}
+            {/* Header Navigation */}
+            <div className="menu-block-wrapper">
+              <div className="menu-overlay" />
+              <nav className="menu-block" id="append-menu-header">
+                <div className="mobile-menu-head">
+                  <div className="go-back">
+                    <i className="fa-solid fa-angle-left" />
+                  </div>
+                  <div className="current-menu-title" />
+                  <div className="mobile-menu-close">×</div>
+                </div>
+                <ul className="site-menu-main">
+                  <li className="nav-item nav-item-has-children">
+                    <a className="nav-link-item drop-trigger" href="/">
+                      Home
+                    </a>
+                  </li>
+                  <li className="nav-item nav-item-has-children">
+                    <a href="#about" className="nav-link-item drop-trigger">
+                      About
+                    </a>
+                  </li>
+                  <li className="nav-item nav-item-has-children">
+                    <a href="#feature" className="nav-link-item drop-trigger">
+                      Feature
+                    </a>
+                  </li>
+                  <li className="nav-item nav-item-has-children">
+                    <a href="#faq" className="nav-link-item drop-trigger">
+                      FAQ
+                    </a>
+                  </li>
+                </ul>
+              </nav>
             </div>
-          </div>
-          <div
-            id="navbar-collapse-with-animation"
-            className="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow sm:block"
-          >
-            <div className="flex flex-col gap-y-4 gap-x-0 mt-5 lg:ml-24 sm:flex-row sm:items-center sm:gap-y-0 sm:gap-x-7 sm:mt-0 sm:ps-7">
+            {/* Header Navigation */}
+            {/* Header User Event */}
+            <div className="flex items-center gap-6">
               <a
-                className="font-medium text-lg text-lime-400 sm:py-6 dark:text-lime-400"
-                href="#"
-                aria-current="page"
+                className="btn-text hidden hover:text-ColorCaribbeanGreen sm:inline-block"
+                href="/login"
               >
-                HOME
+                Login
               </a>
               <a
-                className="font-medium text-lg text-slate-800 hover:text-violet-400 sm:py-6 dark:text-gray-400 dark:hover:text-gray-500"
-                href="#"
+                className="btn is-caribbean-green is-transparent is-rounded btn-animation group hidden sm:inline-block"
+                href="/signup"
               >
-                HOW IT WORKS
+                <span>Sign up free</span>
               </a>
-              <a
-                className="font-medium text-lg text-slate-800 hover:text-lime-400 sm:py-6 dark:text-gray-400 dark:hover:text-gray-500"
-                href="#"
-              >
-                ABOUT
-              </a>
-              <div className="flex items-center gap-x-2 sm:ms-auto">
-                <a
-                  className="inline-flex whitespace-nowrap  items-center gap-x-2  font-medium px-5 py-3 justify-center bg-purple-200 border border-black border-solid rounded-full text-lg hover:bg-lime-400 dark:text-gray-400 dark:hover:bg-lime-400"
-                  href="#"
+              {/* Responsive Offcanvas Menu Button */}
+              <div className="block lg:hidden">
+                <button
+                  id="openBtn"
+                  className="hamburger-menu mobile-menu-trigger"
                 >
-                  Join The WishList
-                </a>
+                  <span />
+                  <span />
+                  <span />
+                </button>
               </div>
             </div>
+            {/* Header User Event */}
           </div>
-        </nav>
+        </div>
       </header>
-      {/* ========== END HEADER ========== */}
       {/*...::: Header End :::... */}
     </>
   );

@@ -6,7 +6,7 @@ const ResumeBuilder = () => {
     <MainDashboard>
       <div>
         <BreadHeader
-          home="Job Builder"
+          home="Resume Builder"
           title="Google Software Engineer Resume"
         />
         <div className="flex justify-between items-start">
@@ -284,7 +284,7 @@ const ResumeBuilder = () => {
                 </div>
               </div>
               <div className="flex flex-col gap-2 min-[400px]:flex-row justify-center py-6">
-                <button className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-[140px] min-w-[140px]">
+                <button className="inline-flex items-center justify-center btn is-rounded is-large mt-8  is-caribbean-green is-transparent btn-animation group  px-4 py-2 w-[140px] min-w-[140px]">
                   Update
                 </button>
               </div>
