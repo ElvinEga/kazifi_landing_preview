@@ -173,6 +173,11 @@ const Navbar = () => {
                       FAQ
                     </a>
                   </li>
+                  <li className="nav-item nav-item-has-children">
+                    <a href="/pricing" className="nav-link-item drop-trigger">
+                      Pricing
+                    </a>
+                  </li>
                 </ul>
               </nav>
             </div>

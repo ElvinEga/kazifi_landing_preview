@@ -16,6 +16,7 @@ import LoginPage from "./pages/Login";
 import InterviewPage from "./pages/dashboard/InterviewPage";
 import SignUp from "./pages/sigup";
 import ForgotPassword from "./pages/ForgotPassword";
+import Pricing from "./pages/Pricing";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/extension" element={<HomePage />} />
         <Route path="/policy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<TermsConditions />} />
+        <Route path="/pricing" element={<Pricing />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/lostpassword" element={<ForgotPassword />} />
