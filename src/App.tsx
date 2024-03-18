@@ -12,9 +12,10 @@ import ResumeBuilder from "./pages/dashboard/ResumeBuilder";
 import ResumeTemplates from "./pages/dashboard/ResumeTemplates";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsConditions from "./pages/Terms";
-import LoginPage from "./pages/LoginPage";
+import LoginPage from "./pages/Login";
 import InterviewPage from "./pages/dashboard/InterviewPage";
-import SignupPage from "./pages/SignupPage copy";
+import SignUp from "./pages/sigup";
+import ForgotPassword from "./pages/ForgotPassword";
 
 function App() {
   return (
@@ -26,7 +27,8 @@ function App() {
         <Route path="/policy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<TermsConditions />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/lostpassword" element={<ForgotPassword />} />
         <Route path="/scan" element={<ScanJobPage />} />
         <Route path="/results" element={<ResultsPage />} />
         <Route path="/dashboard" element={<HomeDashboard />} />

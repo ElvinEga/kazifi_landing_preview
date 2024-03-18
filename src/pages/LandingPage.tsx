@@ -73,7 +73,7 @@ function LandingPage() {
                         className="btn is-caribbean-green is-transparent btn-animation is-large is-rounded group inline-block"
                       >
                         <span>
-                          Start a 15-day free trial
+                          Try Our Browser Extension
                           <i className="fa-regular fa-arrow-right ml-[10px] text-2xl leading-none" />
                         </span>
                       </a>
@@ -176,7 +176,7 @@ function LandingPage() {
                   >
                     <div className="relative">
                       <img
-                        src="assets/img/extension.png"
+                        src="assets/img/icons/extension.svg"
                         alt="content-img-1"
                         width={586}
                         height={586}
@@ -332,6 +332,27 @@ function LandingPage() {
               {/* FAQ Area */}
               <div className="grid items-center gap-y-10 lg:grid-cols-[1fr_minmax(0,_0.8fr)] lg:gap-x-20 xl:gap-x-24 xxl:gap-x-32">
                 {/* FAQ Block */}
+                {/* Content Block */}
+                <div className="jos" data-jos_animation="fade-right">
+                  {/* Section Wrapper */}
+                  <div>
+                    {/* Section Block */}
+                    <div className="mb-5">
+                      <h2 className="font-Kanit text-4xl font-medium leading-none -tracking-[1px] lg:text-5xl xl:text-7xl xxl:text-[80px]">
+                        Start Your Journey with Kazifi
+                      </h2>
+                    </div>
+                    {/* Section Block */}
+                  </div>
+                  {/* Section Wrapper */}
+                  <p>
+                    Kazifi makes creating standout job applications quick and
+                    easy, designed for all skill levels. Tailor and track your
+                    applications effortlessly with our intuitive interface,
+                    drag-and-drop functionality, and pre-designed templates.
+                  </p>
+                </div>
+                {/* Content Block */}
                 <div
                   className="jos relative z-10 flex justify-center"
                   data-jos_animation="fade-left"
@@ -433,27 +454,6 @@ function LandingPage() {
                   {/* Accordion List */}
                 </div>
                 {/* FAQ Block */}
-                {/* Content Block */}
-                <div className="jos" data-jos_animation="fade-right">
-                  {/* Section Wrapper */}
-                  <div>
-                    {/* Section Block */}
-                    <div className="mb-5">
-                      <h2 className="font-Kanit text-4xl font-medium leading-none -tracking-[1px] lg:text-5xl xl:text-7xl xxl:text-[80px]">
-                        Start Your Journey with Kazifi
-                      </h2>
-                    </div>
-                    {/* Section Block */}
-                  </div>
-                  {/* Section Wrapper */}
-                  <p>
-                    Kazifi makes creating standout job applications quick and
-                    easy, designed for all skill levels. Tailor and track your
-                    applications effortlessly with our intuitive interface,
-                    drag-and-drop functionality, and pre-designed templates.
-                  </p>
-                </div>
-                {/* Content Block */}
               </div>
               {/* FAQ Area */}
             </div>

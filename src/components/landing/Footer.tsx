@@ -169,14 +169,6 @@ const Footer = () => {
                           pricing
                         </a>
                       </li>
-                      <li>
-                        <a
-                          className="hover:opcity-100 underline-offset-4 opacity-80 transition-all duration-300 ease-linear hover:underline"
-                          href="/contact"
-                        >
-                          Contact
-                        </a>
-                      </li>
                     </ul>
                   </div>
                   {/* Footer Widget Item */}
@@ -208,7 +200,7 @@ const Footer = () => {
                       <li>
                         <a
                           className="hover:opcity-100 underline-offset-4 opacity-80 transition-all duration-300 ease-linear hover:underline"
-                          href="/error-404"
+                          href="/404page"
                         >
                           404 Not found
                         </a>
@@ -216,7 +208,7 @@ const Footer = () => {
                       <li>
                         <a
                           className="hover:opcity-100 underline-offset-4 opacity-80 transition-all duration-300 ease-linear hover:underline"
-                          href="/reset-password"
+                          href="/lostpassword"
                         >
                           Password Reset
                         </a>
@@ -235,11 +227,11 @@ const Footer = () => {
                     <ul className="flex flex-col gap-y-[10px] capitalize">
                       <li>
                         <a
-                          href="https://www.example.com/"
+                          href="/legal"
                           rel="noopener noreferrer"
                           className="hover:opcity-100 underline-offset-4 opacity-80 transition-all duration-300 ease-linear hover:underline"
                         >
-                          Support
+                          Legal
                         </a>
                       </li>
                       <li>
