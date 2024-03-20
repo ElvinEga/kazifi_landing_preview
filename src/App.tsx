@@ -18,6 +18,9 @@ import SignUp from "./pages/sigup";
 import ForgotPassword from "./pages/ForgotPassword";
 import Pricing from "./pages/Pricing";
 import LegalPage from "./pages/Legal";
+import ResumePreview from "./pages/dashboard/ResumePreview";
+import FileImporter from "./components/dashboard/FileImporter";
+import KeywordsFinder from "./components/dashboard/KeywordFinder";
 
 function App() {
   return (
@@ -38,8 +41,11 @@ function App() {
         <Route path="/dashboard" element={<HomeDashboard />} />
         <Route path="/jobtracker" element={<JobTracker />} />
         <Route path="/resumebuilder" element={<ResumeBuilder />} />
+        <Route path="/resume_scanner" element={<ResumePreview />} />
         <Route path="/templates" element={<ResumeTemplates />} />
         <Route path="/interviews" element={<InterviewPage />} />
+        <Route path="/fileimporter" element={<FileImporter />} />
+        <Route path="/keywordsfinder" element={<KeywordsFinder />} />
       </Routes>
     </>
   );

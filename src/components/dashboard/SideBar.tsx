@@ -34,6 +34,23 @@ const Sidebar = () => {
                 <div className="hs-tooltip inline-block [--placement:right]">
                   <a
                     title="Job Tracker"
+                    href="/resume_scanner"
+                    className="h-16 px-6 flex justify-center  items-center  hover:text-green-400 hover:scale-150 w-full"
+                  >
+                    <i className="fa-duotone fa-scanner-image text-xl"></i>
+                  </a>
+                  <span
+                    className="p-10 hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-md shadow-sm dark:bg-slate-700"
+                    role="tooltip"
+                  >
+                    Resume Scanner
+                  </span>
+                </div>
+              </li>
+              <li>
+                <div className="hs-tooltip inline-block [--placement:right]">
+                  <a
+                    title="Job Tracker"
                     href="/jobtracker"
                     className="h-16 px-6 flex justify-center  items-center  hover:text-green-400 hover:scale-150 w-full"
                   >
