@@ -1,5 +1,7 @@
 import BreadHeader from "../../components/dashboard/BreadHeader";
 import MainDashboard from "../../components/dashboard/MainDashboard";
+import JobDescription from "../../components/dashboard/tabs/JobDescription";
+import ResumeReader from "../../components/dashboard/tabs/ResumeReader";
 
 const ResumePreview = () => {
   return (
@@ -121,94 +123,81 @@ const ResumePreview = () => {
               </div>
             </div>
           </div>
-          <div className="w-1/2 bg-white p-4 rounded-lg shadow-lg">
+          <div className="w-1/2 bg-white p-4 rounded-lg border-x border-t">
             <div className="flex justify-between mb-4">
               <button className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2">
                 Home
               </button>
-              <button className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2">
-                upload resume
-              </button>
             </div>
-            <div className="flex space-x-4 mb-4">
-              <button className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2">
+            <nav
+              className="flex space-x-4 mb-4"
+              aria-label="Tabs"
+              role="tablist"
+            >
+              <button
+                type="button"
+                className="hs-tab-active:bg-blue-600 hs-tab-active:text-white hs-tab-active:hover:text-white hs-tab-active:dark:text-white py-3 px-4 inline-flex items-center gap-x-2 bg-transparent text-sm font-medium text-center text-gray-500 hover:text-blue-600 rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:text-gray-400 dark:hover:text-gray-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 active"
+                id="pills-with-brand-color-item-1"
+                data-hs-tab="#pills-with-brand-color-1"
+                aria-controls="pills-with-brand-color-1"
+                role="tab"
+              >
                 JOB DESCRIPTION
               </button>
-              <button className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2">
+              <button
+                type="button"
+                className="hs-tab-active:bg-blue-600 hs-tab-active:text-white hs-tab-active:hover:text-white hs-tab-active:dark:text-white py-3 px-4 inline-flex items-center gap-x-2 bg-transparent text-sm font-medium text-center text-gray-500 hover:text-blue-600 rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:text-gray-400 dark:hover:text-gray-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                id="pills-with-brand-color-item-2"
+                data-hs-tab="#pills-with-brand-color-2"
+                aria-controls="pills-with-brand-color-2"
+                role="tab"
+              >
                 YOUR RESUME
               </button>
-              <button className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2">
+              <button
+                type="button"
+                className="hs-tab-active:bg-blue-600 hs-tab-active:text-white hs-tab-active:hover:text-white hs-tab-active:dark:text-white py-3 px-4 inline-flex items-center gap-x-2 bg-transparent text-sm font-medium text-center text-gray-500 hover:text-blue-600 rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:text-gray-400 dark:hover:text-gray-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                id="pills-with-brand-color-item-3"
+                data-hs-tab="#pills-with-brand-color-3"
+                aria-controls="pills-with-brand-color-3"
+                role="tab"
+              >
                 CHANGES
               </button>
-            </div>
-            <div className="overflow-y-auto h-[500px]">
-              <h3 className="font-bold mb-2">"Software Engineer"</h3>
-              <p className="text-sm text-gray-600 mb-2">
-                Google Palo Alto, CA, USA
-              </p>
-              <div className="space-y-4">
-                <div>
-                  <h4 className="font-semibold">Qualifications:</h4>
-                  <p className="text-sm text-gray-600">
-                    Minimum qualifications:
-                  </p>
-                  <p className="text-sm text-gray-600">
-                    BS degree in{" "}
-                    <span className="bg-lime-200">Computer Science</span>,
-                    similar technical field of study or equivalent practical
-                    experience.
-                  </p>
-                  <p className="text-sm text-gray-600">
-                    <span className="bg-lime-200">Software</span> development
-                    experience in one or more{" "}
-                    <span className="bg-lime-200">general</span> purpose{" "}
-                    <span className="bg-lime-200">programming</span> languages.
-                  </p>
-                  <p className="text-sm text-gray-600">
-                    Experience working with two or more from the following:{" "}
-                    <span className="bg-lime-200">web</span> application{" "}
-                    <span className="bg-lime-200">development</span>, Unix/Linux
-                    environments, <span className="bg-lime-200">mobile</span>{" "}
-                    application <span className="bg-lime-200">development</span>
-                    , distributed and parallel systems, machine learning,
-                    information retrieval, natural language processing,
-                    networking, developing large{" "}
-                    <span className="bg-lime-200">software</span> systems,
-                    and/or security
-                  </p>
-                  <p className="text-sm text-gray-600">
-                    Working proficiency and communication skills in verbal and
-                    written <span className="bg-lime-200">English</span>.
-                  </p>
+            </nav>
+            <div className="mt-3">
+              <div
+                id="pills-with-brand-color-1"
+                role="tabpanel"
+                aria-labelledby="pills-with-brand-color-item-1"
+              >
+                <div className="overflow-y-auto h-full">
+                  <JobDescription />
                 </div>
-                <div>
-                  <p className="text-sm text-gray-600">
-                    Preferred qualifications:
-                  </p>
-                  <p className="text-sm text-gray-600">
-                    Master's, PhD degree, further education or experience in{" "}
-                    <span className="bg-lime-200">engineering</span>,{" "}
-                    <span className="bg-lime-200">computer</span> science or
-                    other technical related field.
-                  </p>
-                  <p className="text-sm text-gray-600">
-                    Experience with one or more{" "}
-                    <span className="bg-lime-200">general</span> purpose{" "}
-                    <span className="bg-lime-200">programming</span> languages
-                    including but not limited to: Java, C/C++, C#, Objective C,
-                    Python, JavaScript, or Go.
-                  </p>
-                  <p className="text-sm text-gray-600">
-                    Experience developing accessible{" "}
-                    <span className="bg-lime-200">technologies</span>.
-                  </p>
-                  <p className="text-sm text-gray-600">
-                    Interest and ability to learn other{" "}
-                    <span className="bg-lime-200">coding</span> languages as
-                    needed.
-                  </p>
+              </div>
+              <div
+                id="pills-with-brand-color-2"
+                className="hidden"
+                role="tabpanel"
+                aria-labelledby="pills-with-brand-color-item-2"
+              >
+                <div className="overflow-y-auto h-full">
+                  <ResumeReader />
                 </div>
-                <p className="text-sm text-gray-600">About the job</p>
+              </div>
+              <div
+                id="pills-with-brand-color-3"
+                className="hidden"
+                role="tabpanel"
+                aria-labelledby="pills-with-brand-color-item-3"
+              >
+                <p className="text-gray-500 dark:text-gray-400">
+                  This is the{" "}
+                  <em className="font-semibold text-gray-800 dark:text-gray-200">
+                    third
+                  </em>{" "}
+                  item's tab body.
+                </p>
               </div>
             </div>
           </div>

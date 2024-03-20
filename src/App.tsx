@@ -1,7 +1,7 @@
 "use client";
 
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import ScanJobPage from "./pages/ScanJob";
 import ResultsPage from "./pages/Results";
 import LandingPage from "./pages/LandingPage";
@@ -21,8 +21,25 @@ import LegalPage from "./pages/Legal";
 import ResumePreview from "./pages/dashboard/ResumePreview";
 import FileImporter from "./components/dashboard/FileImporter";
 import KeywordsFinder from "./components/dashboard/KeywordFinder";
+import "preline/preline";
+import { IStaticMethods } from "preline/preline";
+import { useEffect } from "react";
+import ResumeReader from "./components/dashboard/tabs/ResumeReader";
+import KeywordExtractor from "./components/dashboard/KeywordExtractor";
+
+declare global {
+  interface Window {
+    HSStaticMethods: IStaticMethods;
+  }
+}
 
 function App() {
+  const location = useLocation();
+
+  useEffect(() => {
+    window.HSStaticMethods.autoInit();
+  }, [location.pathname]);
+
   return (
     <>
       <Routes>
@@ -46,6 +63,8 @@ function App() {
         <Route path="/interviews" element={<InterviewPage />} />
         <Route path="/fileimporter" element={<FileImporter />} />
         <Route path="/keywordsfinder" element={<KeywordsFinder />} />
+        <Route path="/resumereader" element={<ResumeReader />} />
+        <Route path="/keywordextractor" element={<KeywordExtractor />} />
       </Routes>
     </>
   );
