@@ -69,7 +69,7 @@ const FileImporter: React.FC = () => {
     const reader = new FileReader();
 
     reader.onload = () => {
-      const url = reader.result;
+      // const url = reader.result;
       //   setSelectedFile(url as File);
     };
 
