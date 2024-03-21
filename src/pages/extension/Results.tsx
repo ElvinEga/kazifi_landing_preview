@@ -1,5 +1,5 @@
-import Footer from "../components/sections/Footer";
-import Navbar from "../components/sections/navbar";
+import Footer from "../../components/sections/Footer";
+import Navbar from "../../components/sections/navbar";
 
 function ResultsPage() {
   return (

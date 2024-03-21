@@ -2,10 +2,10 @@
 
 import "./App.css";
 import { Routes, Route, useLocation } from "react-router-dom";
-import ScanJobPage from "./pages/ScanJob";
-import ResultsPage from "./pages/Results";
+import ScanJobPage from "./pages/extension/ScanJob";
+import ResultsPage from "./pages/extension/Results";
 import LandingPage from "./pages/LandingPage";
-import HomePage from "./pages/Home";
+import HomePage from "./pages/extension/Home";
 import JobTracker from "./pages/dashboard/JobTracker";
 import HomeDashboard from "./pages/dashboard/Home";
 import ResumeBuilder from "./pages/dashboard/ResumeBuilder";
@@ -45,7 +45,6 @@ function App() {
       <Routes>
         {/* public routes */}
         <Route path="/" element={<LandingPage />} />
-        <Route path="/extension" element={<HomePage />} />
         <Route path="/policy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<TermsConditions />} />
         <Route path="/legal" element={<LegalPage />} />
@@ -53,8 +52,9 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/lostpassword" element={<ForgotPassword />} />
-        <Route path="/scan" element={<ScanJobPage />} />
-        <Route path="/results" element={<ResultsPage />} />
+        <Route path="/extension" element={<HomePage />} />
+        <Route path="/extension/scan" element={<ScanJobPage />} />
+        <Route path="/extension/results" element={<ResultsPage />} />
         <Route path="/dashboard" element={<HomeDashboard />} />
         <Route path="/jobtracker" element={<JobTracker />} />
         <Route path="/resumebuilder" element={<ResumeBuilder />} />

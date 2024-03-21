@@ -269,7 +269,7 @@ const ResumeReader: React.FC = () => {
           ) : (
             <div className="p-12 hv4ig flex justify-center self-center bg-white border-dashed border-2 rounded">
               <div className="text-center">
-                <i className="fa-solid fa-arrow-up-from-bracket text-xl"></i>
+                <i className="fa-solid fa-arrow-up-from-bracket text-23l"></i>
                 <div className="mt-4 flex flex-wrap justify-center dtjcu m11p8 text-stone-600">
                   <span className="pe-2 text-base font-medium text-gray-800  dark:text-neutral-200">
                     Drop your files here or
