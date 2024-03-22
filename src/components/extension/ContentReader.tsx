@@ -2,11 +2,11 @@ import React from "react";
 
 const ProfilePage: React.FC = () => {
   const extract = () => {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      const activeTab = tabs[0];
-      // @ts-ignore
-      chrome.tabs.sendMessage(activeTab.id, { message: "extract" });
-    });
+    // chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    //   const activeTab = tabs[0];
+    //   // @ts-ignore
+    //   chrome.tabs.sendMessage(activeTab.id, { message: "extract" });
+    // });
     console.log("Extract");
     const jobDetailsContainer = document.querySelector(
       ".job-details-jobs-unified-top-card__container--two-pane"
